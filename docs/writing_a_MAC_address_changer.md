@@ -14,7 +14,7 @@
 2. Impersonate other devices.
 3. Bypass filters.
 
-Change the MAC address simply with `ifconfig` command: `ifconfig <interface> hw ether <new_mac_address>` 
+Change the MAC address simply with `ifconfig` command: `ifconfig <interface> hw ether <new_mac_address>`
 
 ```commandline
 ifconfig eth0 down
