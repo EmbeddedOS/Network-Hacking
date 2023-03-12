@@ -29,9 +29,7 @@ def main():
 
     (options, arguments) = parser.parse_args()
 
-    if not options.interface:
-        parser.error("Please specify an interface.")
-    elif not options.mac:
+    if not options.mac:
         parser.error("Please specify an MAC address.")
 
     interface = str(options.interface)

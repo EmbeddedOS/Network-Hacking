@@ -3,6 +3,7 @@ import optparse
 
 # python3 network_scanner.py -t 192.168.233.0/24
 
+
 def ACK_scan(ip, port):
     ans, unans = scapy.sr(scapy.IP(dst=ip)/scapy.TCP(dport=port, flags="A"))
     for s, r in ans:
@@ -27,11 +28,14 @@ def scan_network_with_ip(ip):
         timeout=2,
         verbose=False)
 
+    client_info = []
     print("Step 3: Parsing the answers:")
     for answer in answered_list:
-        print("IP: {}".format(answer[1].psrc))
-        print("MAC: {}".format(answer[1].hwsrc))
-        print("------------------------------------------------------------------------------------")
+        ip = answer[1].psrc
+        mac = answer[1].hwsrc
+        client_info.append({"ip": ip, "mac": mac})
+
+    return client_info
 
 
 def help():
@@ -52,7 +56,9 @@ def main():
 
     ip = str(options.target)
 
-    scan_network_with_ip(ip)
+    result = scan_network_with_ip(ip)
+    print(result)
+
 
 if __name__ == "__main__":
     main()

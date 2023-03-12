@@ -6,7 +6,14 @@
 
 ## Introduction to ARP
 
-ARP request will ask for who has specified IP. The device that has the IP, will reply its MAC address.
+- Basically, ARP is used so that clients can identify other connected clients on same network. So each computer have an ARP table which links Ip addresses on the same network to their MAC address.
+  - Check on Linux:
+
+  ```bash
+  arp -a
+  ```
+
+- ARP request will ask for who has specified IP. The device that has the IP, will reply its MAC address.
 
 ## Network scanner algorithm
 
