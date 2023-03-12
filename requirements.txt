@@ -4,3 +4,4 @@ scapy==2.4.5
 scapy_http
 websocket-client==1.2.3
 scapy_http==1.8.2
+netfilterqueue=1.1.0
