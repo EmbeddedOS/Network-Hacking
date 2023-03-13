@@ -2,7 +2,7 @@ import scapy.all as scapy
 import optparse
 import time
 
-# python3 ARP_spoofing.py --client 192.168.233.136 --access-point 192.168.233.1
+# python3 ARP_spoofing.py --client 192.168.233.140 --access-point 192.168.233.1
 
 
 def get_mac_address(ip):
