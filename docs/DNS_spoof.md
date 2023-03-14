@@ -48,3 +48,17 @@
 - When we actually try to go to a website, we never use the IP. We are going to the domain name, and here is where DNS server are used.
 - When the user sends a request to the DNS sever asking for the domain name, the DNS server will have a big table that contains a number of domains with its IP.
 - Therefore it is going to send a DNS response to the user telling the user that Domain actually is located at a computer with its IP address. And the computer will able to use that website.
+
+- Let's say the user wants to go to `domain.com`, the hacker is going to receive this request. And at this stage, the hacker has a number of ways to serve the IP of the hacker's web server. And instead of the IP of `domain.com`, this is very dangerous because we will be able to hack and spoof any DNS request made by the user and serve the user. Fakes websites, fake login pages, fake updates, and so on.
+
+## Filter DNS responses
+
+- If you are `the man in the middle` and you get a DNS request from a user of a domain name, then you can easily spoof this request and serve the user any website you want.
+
+- The easiest is to install a DNS server, so an application similar to the one installed on this web server on your machine and configure that server to return whatever website you want for whatever request that the users enters.
+
+- The next option is to craft a DNS response in the hacker computer, in this computer right here and send it back to the user, given them this IP instead of the actual IP for the domain.
+
+- The third option is to actually forward the request that the user made to the right DNS server. Wait for the response and once we get the response at the hacker machine will modify this response will only modify the IP part and instead of sending the right IP, we will send the IP that we want and this is what we will do.
+
+- We can a DNS request from client with `nslookup` or `ping` commands.
