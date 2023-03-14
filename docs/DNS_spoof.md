@@ -42,3 +42,9 @@
   - Next, we need to run `iptables -I INPUT -j NFQUEUE --queue-num 0` so these are the packets coming to your computer.
 
   - By using these two commands by redirecting the output and the input chain to your QUEUE and here all requests and responses sent to my computer will be trapped into this queue and then we will be able to use our program exactly the same way.
+
+## Introduction to DNS spoofing
+
+- When we actually try to go to a website, we never use the IP. We are going to the domain name, and here is where DNS server are used.
+- When the user sends a request to the DNS sever asking for the domain name, the DNS server will have a big table that contains a number of domains with its IP.
+- Therefore it is going to send a DNS response to the user telling the user that Domain actually is located at a computer with its IP address. And the computer will able to use that website.
