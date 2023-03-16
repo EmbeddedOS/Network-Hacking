@@ -3,6 +3,7 @@ import requests
 import optparse
 import re
 import urllib.parse
+import os
 
 # Crawling all resources with a specific URL: python3 web_crawler.py --path /home/larva/Downloads/tmp/ --url https://udemy.com/
 
@@ -20,17 +21,21 @@ def request(url):
 def download(url):
     global path
 
-    res = request(url)
+    try:
+        res = request(url)
 
-    file_name = url.split("/")[-1]
-    file_name = file_name.split('?')[0]
+        file_path = urllib.parse.urlparse(url).path
 
-    if file_name != "" and res:
-        file_name = path + file_name
+        if os.path.basename(file_path) != "" and res:
+            file_path = path + file_path
+            os.makedirs(os.path.dirname(file_path), exist_ok=True)
 
-        with open(file_name, "wb") as f:
-            print("Crawling resource ---->> {}".format(file_name))
-            f.write(res.content)
+            with open(file_path, "wb") as f:
+                print("Crawling resource ---->> {}".format(file_path))
+                f.write(res.content)
+    
+    except Exception as e:
+        pass
 
 
 def extract_links_url(url):
@@ -38,6 +43,7 @@ def extract_links_url(url):
     if res:
         return re.findall('(?:href=")(.*?)"', str(res.content))
     return []
+
 
 def crawl(url):
     print("Crawling URL: {}".format(url))
