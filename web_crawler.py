@@ -5,11 +5,11 @@ import re
 import urllib.parse
 import os
 
-# Crawling all resources with a specific URL: python3 web_crawler.py --path /home/larva/Downloads/tmp/ --url https://udemy.com/
+# Crawling all resources with a specific URL: python3 web_crawler.py --path /home/larva/Downloads/tmp/ --url https://udemy.com/ --href
 
 links = []
 path = "./"
-
+crawl_href=False
 
 def request(url):
     try:
@@ -39,13 +39,18 @@ def download(url):
 
 
 def extract_links_url(url):
+    global href_links
     res = request(url)
 
     if res:
-        href_links = re.findall('(?:href=")(.*?)"', str(res.content))
+        href_links = []
+
+        if crawl_href:
+            href_links = re.findall('(?:href=")(.*?)"', str(res.content))
+
         src_links = re.findall('(?:src=")(.*?)"', str(res.content))
 
-        return href_links + src_links
+        return src_links + href_links
 
     return []
 
@@ -77,6 +82,9 @@ def main():
 
     parser.add_option("-p", "--path", dest="path",
                       help="Resource storing path.")
+    
+    parser.add_option("--href", dest="href", action="store_true", default=False,
+                      help="Crawling all HTML <a> href Attribute")
     (options, arguments) = parser.parse_args()
 
     if not options.url:
@@ -86,6 +94,9 @@ def main():
 
     if options.path:
         path = str(options.path)
+
+    if options.href:
+        crawl_href = bool(options.href)
 
     crawl(url)
 
