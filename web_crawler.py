@@ -33,15 +33,20 @@ def download(url):
             with open(file_path, "wb") as f:
                 print("Crawling resource ---->> {}".format(file_path))
                 f.write(res.content)
-    
+
     except Exception as e:
         pass
 
 
 def extract_links_url(url):
     res = request(url)
+
     if res:
-        return re.findall('(?:href=")|(?:src=")(.*?)"', str(res.content))
+        href_links = re.findall('(?:href=")(.*?)"', str(res.content))
+        src_links = re.findall('(?:src=")(.*?)"', str(res.content))
+
+        return href_links + src_links
+
     return []
 
 
