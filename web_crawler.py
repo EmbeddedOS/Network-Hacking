@@ -41,7 +41,7 @@ def download(url):
 def extract_links_url(url):
     res = request(url)
     if res:
-        return re.findall('(?:href=")(.*?)"', str(res.content))
+        return re.findall('(?:href=")|(?:src=")(.*?)"', str(res.content))
     return []
 
 
