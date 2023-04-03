@@ -17,7 +17,7 @@ def process_packet(packet):
 
     scapy_packet = scapy.IP(packet.get_payload())
 
-    if scapy_packet.haslayer(scapy.Raw):
+    if scapy_packet.haslayer(scapy.Raw) and scapy_packet.haslayer(scapy.TCP):
         if scapy_packet[scapy.TCP].dport == port:
 
             # Capture resource downloading requests.
