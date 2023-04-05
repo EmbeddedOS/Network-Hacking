@@ -16,5 +16,21 @@
   - Use XSS exploit.
   - Social engineer the target to open a hook page.
 
-- For example, when we want to update the package in our system, we run `apt update`
-- Install BeEF: `apt-get install beef-xss`
+- Install BeEF:
+
+```bash
+sudo apt-get install software-properties-common
+sudo apt-add-repository -y ppa:brightbox/ruby-ng
+sudo apt-add-repository -y ppa:rael-gc/rvm
+sudo apt-get install rvm
+rvm install "ruby-2.5.3"
+echo 'source "/etc/profile.d/rvm.sh"' >> ~/.bashrc
+sudo add-apt-repository ppa:jonathonf/gcc-9.0
+sudo apt-get install gcc-9
+
+git clone https://github.com/beefproject/beef
+cd beef
+./install 
+./beef 
+
+```

